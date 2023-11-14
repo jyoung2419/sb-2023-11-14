@@ -3,6 +3,7 @@ package com.ll.sb20231114;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -215,6 +216,18 @@ public class HomeController {
                 """.formatted(subject, content);
 
         return html;
+    }
+
+    @GetMapping("/calc20")
+    String showCalc20() {
+        return "calc20";
+    }
+
+    @GetMapping("/calc21")
+    String showCalc21(Model model) {
+        model.addAttribute("v1", "안녕");
+        model.addAttribute("v2", "반가워");
+        return "calc21";
     }
 }
 
