@@ -11,7 +11,8 @@ import java.util.Map;
 
 @Controller
 public class ArticleController {
-    private Article lastArticle;
+    private Article[] articles = new Article[3];
+    private int articlesLastIndex = -1;
 
     @GetMapping("/article/write")
     String showWrite() {
@@ -24,11 +25,13 @@ public class ArticleController {
             String title,
             String body
     ) {
-        lastArticle = new Article(1, title, body);
+        Article article = new Article(articlesLastIndex + 2, title, body);
 
         Map<String, Object> rs = new HashMap<>();
-        rs.put("msg", "1번 게시물이 작성되었습니다.");
-        rs.put("data", lastArticle);
+        rs.put("msg", "%d번 게시물이 작성되었습니다.".formatted(article.getId()));
+        rs.put("data", article);
+
+        articles[++articlesLastIndex] = article;
 
         return rs;
     }
@@ -36,7 +39,13 @@ public class ArticleController {
     @GetMapping("/article/getLastArticle")
     @ResponseBody
     Article getLastArticle() {
-        return lastArticle;
+        return articles[articlesLastIndex];
+    }
+
+    @GetMapping("/article/getArticles")
+    @ResponseBody
+    Article[] getArticles() {
+        return articles;
     }
 }
 
