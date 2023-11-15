@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -103,5 +104,14 @@ public class ArticleController {
     @ResponseBody
     String rqPointer() {
         return rq.toString();
+    }
+
+    @GetMapping("/article/rqTest")
+    String showRqTest(Model model) {
+        String rqToString = rq.toString();
+
+        model.addAttribute("rqToString", rqToString);
+
+        return "article/rqTest";
     }
 }
