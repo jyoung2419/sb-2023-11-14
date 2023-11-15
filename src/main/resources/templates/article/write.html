@@ -1,5 +1,8 @@
-<form onsubmit="submitWriteForm(this); return false;"
-      style="display: flex; flex-direction: column; gap:20px; max-width:500px;">
+<a href="http://localhost:8020/article/doWrite?title=제목임&body=내용임">
+  전송
+</a>
+<hr>
+<form action="/article/doWrite" onsubmit="submitWriteForm(this); return false;"      style="display: flex; flex-direction: column; gap:20px; max-width:500px;">
   <input type = "text" name="title" placeholder="제목">
 
   <input type = "text" name="body" placeholder="내용">
@@ -36,6 +39,6 @@
       return;
     }
 
-    location.href = `/article/doWrite?title=${title}&body=${body}`;
+    form.submit();
   }
 </script>
