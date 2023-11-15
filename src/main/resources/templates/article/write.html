@@ -1,10 +1,8 @@
-<a onclick="return false;" href="https://www.naver.com">네이버</a>
-
-<form onsubmit="submitWriteForm(); return false;"
+<form onsubmit="submitWriteForm(this); return false;"
       style="display: flex; flex-direction: column; gap:20px; max-width:500px;">
-  <input type = "text" id = "input-title" placeholder="제목">
+  <input type = "text" name="title" placeholder="제목">
 
-  <input type = "text" id = "input-body" placeholder="내용">
+  <input type = "text" name="body" placeholder="내용">
 
   <!-- javascript:; 는 아무것도 하지 않는다는 뜻 -->
   <button type="submit">
@@ -13,9 +11,10 @@
 </form>
 
 <script>
-  function submitWriteForm() {
-    const inputTitle = document.getElementById('input-title');
-    const inputBody = document.getElementById('input-body');
+  function submitWriteForm(form) {
+    const inputTitle = form.title;
+
+    const inputBody = form.body;
 
     inputTitle.value = inputTitle.value.trim();
     inputBody.value = inputBody.value.trim();
