@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -13,32 +14,39 @@ import java.util.List;
 public class ArticleController {
     private List<Article> articles = new ArrayList<>();
 
-    // GET /article/write
     @GetMapping("/article/write")
     String showWrite() {
         return "article/write";
     }
 
-    // GET /article/doWrite?title=제목&body=내용
-    @GetMapping("/article/doWrite")
+    @PostMapping("/article/doWrite")
     @ResponseBody
-    RsData<Article> doWrite(String title, String body) {
-        long id = articles.size() + 1;
-
-        Article article = new Article(id, title, body);
+    RsData doWrite(
+            String title,
+            String body
+    ) {
+        Article article = new Article(articles.size() + 1, title, body);
         articles.add(article);
 
-        return new RsData<>("S-1", "성공", article);
+        RsData<Article> rs = new RsData<>(
+                "S-1",
+                "%d번 게시물이 작성되었습니다.".formatted(article.getId()),
+                article
+        );
+
+        String resultCode = rs.getResultCode();
+        String msg = rs.getMsg();
+        Article _article = rs.getData();
+
+        return rs;
     }
 
-    // GET /article/getLastArticle
     @GetMapping("/article/getLastArticle")
     @ResponseBody
     Article getLastArticle() {
         return articles.getLast();
     }
 
-    // GET /article/getArticles
     @GetMapping("/article/getArticles")
     @ResponseBody
     List<Article> getArticles() {
@@ -48,16 +56,16 @@ public class ArticleController {
 
 @AllArgsConstructor
 @Getter
-class Article {
-    private long id;
-    private String title;
-    private String body;
-}
-
-@AllArgsConstructor
-@Getter
 class RsData<T> {
     private String resultCode;
     private String msg;
     private T data;
+}
+
+@AllArgsConstructor
+@Getter
+class Article {
+    private long id;
+    private String title;
+    private String body;
 }
