@@ -77,4 +77,23 @@ public class ArticleController {
     List<Article> getArticles() {
         return articleService.findAll();
     }
+
+
+    @GetMapping("/article/articleServicePointer")
+    @ResponseBody
+    String articleServicePointer() {
+        return articleService.toString();
+    }
+
+    @GetMapping("/article/httpServletRequestPointer")
+    @ResponseBody
+    String httpServletRequestPointer(HttpServletRequest req) {
+        return req.toString();
+    }
+
+    @GetMapping("/article/httpServletResponsePointer")
+    @ResponseBody
+    String httpServletResponsePointer(HttpServletResponse resp) {
+        return resp.toString();
+    }
 }
