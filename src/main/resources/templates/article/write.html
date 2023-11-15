@@ -11,19 +11,22 @@
 
 <script>
   function submitWriteForm() {
-    document.getElementById('input-title').value = document.getElementById('input-title').value.trim();
-    document.getElementById('input-body').value = document.getElementById('input-body').value.trim();
+    const inputTitle = document.getElementById('input-title');
+    const inputBody = document.getElementById('input-body');
 
-    const title = document.getElementById('input-title').value;
-    const body = document.getElementById('input-body').value;
+    inputTitle.value = inputTitle.value.trim();
+    inputBody.value = inputBody.value.trim();
 
-    if ( title.length == 0 ) {
+    const title = inputTitle.value;
+    const body = inputBody.value;
+
+    if (title.length == 0) {
       alert('제목을 입력해주세요.');
 
       return;
     }
 
-    if ( body.length == 0 ) {
+    if (body.length == 0 ) {
       alert('내용을 입력해주세요.');
 
       return;
