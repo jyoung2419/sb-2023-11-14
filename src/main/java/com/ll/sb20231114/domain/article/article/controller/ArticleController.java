@@ -61,6 +61,8 @@ public class ArticleController {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
         resp.getWriter().println(objectMapper.writeValueAsString(rs));
     }
 
